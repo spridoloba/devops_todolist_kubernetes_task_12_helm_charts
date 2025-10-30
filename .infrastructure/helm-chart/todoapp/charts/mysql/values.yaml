@@ -17,9 +17,14 @@ mysql:
     requests:
       cpu: 500m
       memory: 1Gi
+   toleration:
+   - key: "app"
+     operator: "Equal"
+     value: "mysql"
+     effect: "NoSchedule"
    pvc:
     requests:
-      storage: 1Gi
+      storage: 2Gi
    spec:
     affinity:
       podAntiAffinity:

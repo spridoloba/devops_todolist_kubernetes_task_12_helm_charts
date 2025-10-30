@@ -65,10 +65,10 @@ spec:
         configMap:
           name: mysql
       tolerations:
-      - key: "app"
-        operator: "Equal"
-        value: "mysql"
-        effect: "NoSchedule"
+      - key: {{ .Values.mysql.toleration.key}}
+        operator: {{ .Values.mysql.toleration.operator}}
+        value: {{ .Values.mysql.toleration.value}}
+        effect: {{ .Values.mysql.toleration.effect}}
       affinity:
       {{- toYaml .Values.mysql.spec.affinity | nindent 8 }}
   volumeClaimTemplates:
@@ -78,4 +78,4 @@ spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 2Gi
+          storage: {{ .Values.mysql.pvc.requests.storage}}
