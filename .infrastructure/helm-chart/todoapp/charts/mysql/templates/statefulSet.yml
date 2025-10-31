@@ -46,8 +46,11 @@ spec:
           mountPath: /docker-entrypoint-initdb.d
         resources:
           requests:
-            cpu: {{ .Values.mysql.resources.requests.cpu}}
-            memory: {{ .Values.mysql.resources.requests.memory}}
+            cpu: {{ .Values.mysql.resources.requests.cpu }}
+            memory: {{ .Values.mysql.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.mysql.resources.limits.cpu }}
+            memory: {{ .Values.mysql.resources.limits.memory }}
         livenessProbe:
           exec:
             command: ["mysqladmin", "ping"]
@@ -65,10 +68,7 @@ spec:
         configMap:
           name: mysql
       tolerations:
-      - key: {{ .Values.mysql.toleration.key}}
-        operator: {{ .Values.mysql.toleration.operator}}
-        value: {{ .Values.mysql.toleration.value}}
-        effect: {{ .Values.mysql.toleration.effect}}
+      {{- toYaml .Values.mysql.toleration | nindent 6 }}
       affinity:
       {{- toYaml .Values.mysql.spec.affinity | nindent 8 }}
   volumeClaimTemplates:

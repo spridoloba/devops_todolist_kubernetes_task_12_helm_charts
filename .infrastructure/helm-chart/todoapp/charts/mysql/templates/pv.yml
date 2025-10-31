@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-data
-  namespace: {{ .Values.common.namespace }}
+  name: {{ .Chart.Name}}-pv-data
 spec:
   storageClassName: standard
   persistentVolumeReclaimPolicy: Delete
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   capacity:
     storage: {{ .Values.mysql.pvc.requests.storage}}
   hostPath:

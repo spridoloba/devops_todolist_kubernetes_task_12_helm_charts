@@ -15,8 +15,11 @@ mysql:
       MYSQL_PASSWORD: "1234"
    resources:
     requests:
-      cpu: 500m
-      memory: 1Gi
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
    toleration:
    - key: "app"
      operator: "Equal"
